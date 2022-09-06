@@ -4,21 +4,24 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
-const app = express();
-
+app = express();
 //configure env file
 dotenv.config({path: './config.env'});
 require('./db/conn');
-
+const port = process.env.PORT;
 //require model
 const Users = require('./models/userSchema');
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
+
 
 
 app.get('/', (req, res)=>{
     res.send("Hello World");
 })
 //Registration
-app.post('./register',(req,res)=>{ 
+app.post('/register',async (req,res)=>{ 
     try{
         const username = req.body.username;
         const email = req.body.email;
@@ -38,7 +41,7 @@ app.post('./register',(req,res)=>{
         res.status(200).send("registrado com sucesso");
     }
     catch(error){
-        re.status(400).send(error)
+        res.status(400).send(error)
     }
 
         
@@ -47,6 +50,6 @@ app.post('./register',(req,res)=>{
 })
 
 
-app.listen(3001, ()=>{
+app.listen(port, ()=>{
     console.log("Server is Listening")
 })
