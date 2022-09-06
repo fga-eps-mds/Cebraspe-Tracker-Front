@@ -30,12 +30,12 @@ const  userSchema = new mongoose.Schema({
     receberSms1:{
         type:Boolean,
         required:false,
-        default:false
+        default:true
     },
     receberSms2:{
         type:Boolean,
         required:false,
-        default:false
+        default:true
     },
     tokens:[{
         token: {
