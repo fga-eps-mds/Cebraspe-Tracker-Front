@@ -6,6 +6,11 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
+//configure env file
+dotenv.config({path: './config.env'});
+require('./db/conn');
+
+
 app.get('/', (req, res)=>{
     res.send("Hello World");
 })
