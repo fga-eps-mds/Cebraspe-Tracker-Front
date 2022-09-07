@@ -49,6 +49,39 @@ app.post('/register',async (req,res)=>{
 
 })
 
+// login do usuario 
+app.post('/login', async (req, res)=>{
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+
+        // Facha usaurio se existe
+        const user = await Users.findOne({email : email});
+        if(user){
+            // verificar senha
+            const isMatch = await bcryptjs.compare(password, user.password);
+
+            if(isMatch){
+                // gerar token 
+                const token = await user.generateToken();
+                res.cookie("jwt", token, {
+                    // Expires Token in 24 Hours
+                    expires : new Date(Date.now() + 86400000),
+                    httpOnly : true
+                })
+                res.status(200).send("LoggedIn")
+            }else{
+                res.status(400).send("dados incorretos");
+            }
+        }else{
+            res.status(400).send("dados incorretos");
+        }
+
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+
 
 app.listen(port, ()=>{
     console.log("Server is Listening")
