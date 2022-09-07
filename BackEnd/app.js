@@ -69,7 +69,7 @@ app.post('/login', async (req, res)=>{
                     expires : new Date(Date.now() + 86400000),
                     httpOnly : true
                 })
-                res.status(200).send("LoggedIn")
+                res.status(200).send("logado com Sucesso")
             }else{
                 res.status(400).send("dados incorretos");
             }
