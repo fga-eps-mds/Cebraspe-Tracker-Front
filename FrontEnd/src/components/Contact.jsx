@@ -8,7 +8,7 @@ const Contact = () => {
                     <div className="row mb-5">
                         <div className="col-12">
                             <h3 className="fs-5 text-center mb-0 text-white">Entre em contato</h3>
-                            <h1 className="display-6 text-center mb-4 text-white">Possui alguma <b style={{ color: '#9C7DFD' }}>Pergunta ?</b></h1>
+                            <h1 className="display-6 text-center mb-4 text-white">Possui alguma <b style={{ color: '#9C7DFD' }}>Pergunta</b>?</h1>
                             <hr className="w-25 mx-auto" />
                         </div>
                     </div>
