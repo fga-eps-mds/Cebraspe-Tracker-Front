@@ -8,8 +8,8 @@ const About = () => {
                 <div className="container my-5 py-5">
                     <div className='row'>
                         <div className='col-12'>
-                            <h3 className="display-4 fw-bolder mb-4 text-center text-white">O <span style={{ color: '#9C7DFD' }}>CTRACKER</span> É</h3>
-                            <h1 className="lead text-center fs-4 mb-5 text-white">Um projeto desenvolvido por alunos da <span style={{ color: '#00ADFC' }}>UNB</span> com o intuito de ajudar os estudantes a descobrirem se foram aprovados pelo proceso seletivo <span style={{ color: '#00E6CF' }}>PAS</span>.</h1>
+                            <h3 className="display-4 fw-bolder mb-4 text-center text-white">O <span style={{ color: '#00ADFC' }}>CTRACKER</span> É</h3>
+                            <h1 className="lead text-center fs-4 mb-5 text-white">Um projeto desenvolvido por alunos da <span style={{ color: '#9C7DFD' }}>UNB</span> com o intuito de ajudar os estudantes a descobrirem se foram aprovados pelo proceso seletivo <span style={{ color: '#00E6CF' }}>PAS</span>.</h1>
                         </div>
                     </div>
                     <div className="row mt-5 justify-content-center">

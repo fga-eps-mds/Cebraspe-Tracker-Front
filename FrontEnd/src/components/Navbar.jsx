@@ -6,7 +6,7 @@ const Navbar = () => {
         <div>
                 <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
                     <NavLink to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                        <span className="fs-4" style={{color: 'white', marginLeft: 50}}>CTRACKER</span>
+                        <span className="fs-4 fw-bold" style={{color: '#00ADFC', marginLeft: 50}}>CTRACKER</span>
                     </NavLink>
                     <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 mx-auto">
                         <li><NavLink to="/" className="nav-link px-2 link-secondary">Produto</NavLink></li>
