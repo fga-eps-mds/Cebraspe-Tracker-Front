@@ -24,9 +24,9 @@ const Register = () => {
                                 <label for="name" class="form-label">Nome</label>
                                 <input type="Text" class="form-control" id="name" placeholder='Nome Completo' />
                             </div>
-                            <div class="mb-3 ">
-                                <label for="number" class="form-label">Número de telefone</label>
-                                <input type="number" class="form-control" id="number" placeholder='(61) 9XXXX-XXXX' />
+                            <div class="mb-3">
+                                <label class="form-label" for="typePhone">Numero de telefone</label>
+                                <input type="tel" id="typePhone" class="form-control" placeholder='(61)99999-9999'/>
                             </div>
                             <div class="mb-3 text-white">
                                 <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
@@ -34,7 +34,7 @@ const Register = () => {
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder='Senha Exemplo'/>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder='Senha Exemplo' />
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" />
