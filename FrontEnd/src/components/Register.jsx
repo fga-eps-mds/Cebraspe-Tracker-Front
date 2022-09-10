@@ -1,7 +1,64 @@
 import React from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router';
+import axios from "axios";
 
 const Register = () => {
+
+    const history = useNavigate()
+
+    const [user, setUser] = useState({
+      username : "",
+      email:"",
+      password : "",
+      phone : ""
+    });
+
+    //handle inputs
+    const handleInput = (event) =>{
+        let name = event.target.name;
+        let value = event.target.value;
+    
+        setUser({...user, [name]:value});
+      }
+
+      const handleSubmit = async (event)=>{
+        event.preventDefault();
+        // Object DeStructuring
+        // Store Object Data into Variables
+        const {username, email, password, phone} = user;
+        try {
+        
+        //  const res = await fetch('http://localhost:3000/register', {
+         //   method : "POST",
+        //    headers : {
+        //      "Content-Type" : "application/json"
+        //    },
+        //    body : JSON.stringify({
+       //       username, email, password, phone
+      //      })
+     //     })
+
+          
+          axios.post("http://localhost:3000/register",user)
+          .then(res=>{
+            if(res.status(400)){
+              window.alert("usaurio ja registrado")
+            }
+            else{
+              
+              window.alert("Registrado com sucesso");
+              history('/login')
+            }
+          })
+          
+       
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
     return (
         <div>
             <div className="container my-5">
@@ -17,27 +74,41 @@ const Register = () => {
                     </div>
 
 
-                    <div className="col-md-5 p-5 align-items-center justify-content-center text-white" style={{ backgroundColor: "#009485", borderRadius: 50 }}>
+                    <div 
+                    className="col-md-5 p-5 align-items-center justify-content-center text-white" 
+                    style={{ backgroundColor: "#009485", 
+                    borderRadius: 50 }}>
                         <h1 className="display-6 fw-bolder mb-5 text-center">Entrar</h1>
-                        <form>
+                        <form onSubmit={handleSubmit} method="POST">
                             <div class="mb-3 ">
                                 <label for="name" class="form-label">Nome</label>
-                                <input type="Text" class="form-control" id="name" placeholder='Nome Completo' />
+                                <input type="Text" 
+                                class="form-control" 
+                                id="name" 
+                                name="username"
+                                 placeholder='Nome Completo' 
+                                  value ={user.username}
+                                   onChange={handleInput}/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="typePhone">Numero de telefone</label>
-                                <input type="tel" id="typePhone" class="form-control" placeholder='(61)99999-9999'/>
+                                <input type="Text" id="typePhone"
+                                class="form-control"
+                                placeholder='(61)99999-9999'
+                                value={user.phone}
+                                name="phone" 
+                                onChange={handleInput}/>
                             </div>
                             <div class="mb-3 text-white">
                                 <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder='Nome@exemplo.com' />
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder='Nome@exemplo.com' value={user.email}  onChange={handleInput}/>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder='Senha Exemplo' />
+                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder='Senha Exemplo' value={user.password} onChange={handleInput} />
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" />
+                                <input class="form-check-input"  type="checkbox" value="" id="flexCheckIndeterminate" />
                                 <label class="form-check-label" for="flexCheckIndeterminate">
                                     Concordo com termos de uso
                                 </label>
