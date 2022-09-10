@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router';
-import axios from "axios";
+
 
 const Register = () => {
 
@@ -15,49 +15,46 @@ const Register = () => {
       phone : ""
     });
 
+
     //handle inputs
     const handleInput = (event) =>{
-        let name = event.target.name;
-        let value = event.target.value;
-    
-        setUser({...user, [name]:value});
-      }
-
-      const handleSubmit = async (event)=>{
-        event.preventDefault();
-        // Object DeStructuring
-        // Store Object Data into Variables
-        const {username, email, password, phone} = user;
-        try {
-        
-        //  const res = await fetch('http://localhost:3000/register', {
-         //   method : "POST",
-        //    headers : {
-        //      "Content-Type" : "application/json"
-        //    },
-        //    body : JSON.stringify({
-       //       username, email, password, phone
-      //      })
-     //     })
-
-          
-          axios.post("http://localhost:3000/register",user)
-          .then(res=>{
-            if(res.status(400)){
-              window.alert("usaurio ja registrado")
-            }
-            else{
-              
-              window.alert("Registrado com sucesso");
-              history('/login')
-            }
+      let name = event.target.name;
+      let value = event.target.value;
+  
+      setUser({...user, [name]:value});
+    }
+    const handleSubmit = async (event)=>{
+      event.preventDefault();
+      // Object DeStructuring
+      // Store Object Data into Variables
+      const {username, email, password,phone } = user;
+      try {
+        //It is Submitted on port 3000 by default
+        // Which is Front End but we need to 
+        // Submit it on Backend which is on 
+        // Port 3001. So we need Proxy.
+        const res = await fetch('http://localhost:3000/register', {
+          method : "POST",
+          headers : {
+            "Content-Type" : "application/json"
+          },
+          body : JSON.stringify({
+            username, email, password,phone
           })
+        })
+        console.log(res.status)
+        if(res.status === 400 || !res){
+          window.alert("Usuario ja existente")
+        }else{
           
-       
-        } catch (error) {
-          console.log(error);
+          window.alert("Registrado Com Sucesso");
+          history('/login')
         }
+      } catch (error) {
+        console.log(error);
       }
+    }
+  
 
     return (
         <div>
