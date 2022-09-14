@@ -80,3 +80,37 @@ print(vetor_email)
 #msg['From'] = sender
 #msg['To'] = ", ".join(recipients)
 #s.sendmail(sender, recipients, msg.as_string())
+
+
+####################### Mandar Email Caso1 ################################################
+def sendEmailOne():     # automacao de emails para  count de links 
+    db_sendEmail = cluster["counts"]
+    collection_users_sendEmail = db_sendEmail["counts_de_links"]
+    total_users_sendEmail = collection_users_sendEmail.count_documents({})
+ #   print(total_users_sendEmail)
+    array_count_for_links =  list(collection_users_sendEmail.find({},{'_id':0}))
+
+    if array_count_for_links[0]['Count-de-href-ultimo'] != array_count_for_links[0]['Count-de-href-atual']:
+          if array_count_for_links[0]['Count-de-Chamadas-ultimo'] != array_count_for_links[0]['Count-de-Chamadas-atual']:
+            break
+          db = cluster["SmsServicetest"]
+          collection_users = db["users"]
+          total_users = collection_users.count_documents({})
+#print(total_users)
+          array_email=[]
+          array_email_list =  list(collection_users.find({},{'email':1,'_id':0}))
+          for i in range(0,len(array_email_list)):
+            array_email.append(array_email_list[i]['email'])
+          msg = EmailMessage()
+          msg['Subject'] = 'tem atualizacao no cebraspe'
+          msg['From'] = 'suporte do cebraspe-tracker'
+      
+          msg['To'] = array_email
+          msg.set_content("Ola querido Candidato(a). \n O nosso sistema encontrou ataulizacao no site do Cebraspe. \n \n \nObservacao esse email e automatico  ")
+          print("mandou email")
+          server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+          server.login('email','senha')
+          
+          server.send_message(msg)
+          server.quit()
+
