@@ -3,6 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from pymongo import MongoClient
 import numpy as np
+from email.message import EmailMessage
 
 
 
@@ -145,4 +146,72 @@ def sendEmailTwo():
           
           server.send_message(msg)
           server.quit()
+        
+        
+
+########### sendEmailthree ##################################################################
+
+def sendEmailthree():
+    db = cluster["SmsServicetest"]
+    collection_users = db["users"]
+    total_users = collection_users.count_documents({})
+    print(total_users)
+    array_nomes =  list(collection_users.find({},{'nome':1,'email':1,'_id':0}))
+
+
+    arrays_of_names = np.array(array_nomes)
+
+
+
+
+
+    print("parte 2")
+# banco de dados dos pessoas encontrados durane crawling 
+
+
+
+    db_crawled = cluster["users"]
+    collection_users_crawled = db_crawled["names_found"]
+
+    total_users_2 = collection_users_crawled.count_documents({})
+    array_nomes_crawled =  list(collection_users_crawled.find({},{'item':1,'_id':0}))
+    print(total_users_2)
+    print(array_nomes_crawled)
+    arrays_of_names_crawled = np.array(array_nomes_crawled)
+
+    print(len(arrays_of_names_crawled))
+
+    print(arrays_of_names_crawled)
+
+    array_of_names_final =[]
+
+    for i in range(0,len(arrays_of_names_crawled)):
+        if arrays_of_names_crawled[i]['item'] == "":
+            continue
+        a = arrays_of_names_crawled[i]['item']
+        array_of_names_final.append(a)
+
+    print(array_of_names_final)
+
+
+
+    vetor_email=[]
+    for i in range(0,len(array_of_names_final)):
+        for j in range(0,len(arrays_of_names)):
+            if array_of_names_final[i] == arrays_of_names[j]['nome']:
+                vetor_email.append(arrays_of_names[j]['email'])
+    msg = EmailMessage()
+    msg['Subject'] = 'Tem Novo Chamada para Subprograma/Pas'
+    msg['From'] = 'Suporte do cebraspe-tracker'
+        #  msg['to'] = 'hannanhoney7000@gmail.com'
+    msg['To'] = array_email
+    msg.set_content("Ola querido Candidato(a). \n O nosso sistema encontrou Novo Chamada NO site Do Cebraspe. \n \n \nObservacao esse email e automatico  ")
+    print("mandou email")
+    server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+    server.login('email','senha')
+          
+    server.send_message(msg)
+    server.quit()
+    
+
 
