@@ -113,4 +113,36 @@ def sendEmailOne():     # automacao de emails para  count de links
           
           server.send_message(msg)
           server.quit()
+            
+            
+            
+  
+###########################send email 2#################################
+
+def sendEmailTwo():
+    db_sendEmail = cluster["counts"]
+    collection_users_sendEmail = db_sendEmail["counts_de_links"]
+    total_users_sendEmail = collection_users_sendEmail.count_documents({})
+    array_count_for_links =  list(collection_users_sendEmail.find({},{'_id':0}))
+    if array_count_for_links[0]['Count-de-Chamadas-ultimo'] != array_count_for_links[0]['Count-de-Chamadas-atual']:
+        db = cluster["SmsServicetest"]
+        collection_users = db["users"]
+        total_users = collection_users.count_documents({})
+#print(total_users)
+        array_email=[]
+        array_email_list =  list(collection_users.find({},{'email':1,'_id':0}))
+        for i in range(0,len(array_email_list)):
+            array_email.append(array_email_list[i]['email'])
+          msg = EmailMessage()
+          msg['Subject'] = 'Tem Novo Chamada para Subprograma/Pas'
+          msg['From'] = 'Suporte do cebraspe-tracker'
+  
+          msg['To'] = array_email
+          msg.set_content("Ola querido Candidato(a). \n O nosso sistema encontrou Novo Chamada NO site Do Cebraspe. \n \n \nObservacao esse email e automatico  ")
+          print("mandou email")
+          server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+          server.login('email','senha')
+          
+          server.send_message(msg)
+          server.quit()
 
