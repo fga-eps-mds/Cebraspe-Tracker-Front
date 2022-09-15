@@ -14,6 +14,7 @@ require('./db/conn');
 const port = process.env.PORT;
 //require model
 const Users = require('./models/userSchema');
+const authenticate = require('./middleware/authenticate');
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
@@ -84,6 +85,18 @@ app.post('/login', async (req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
+})
+
+//logout page
+app.get('/logout', (req, res)=>{
+    res.clearCookie("jwt", {path : '/'})
+    res.status(200).send("User Logged Out")
+
+})
+
+//authentication
+app.get('/auth', authenticate, (req,res)=>{
+    
 })
 
 
