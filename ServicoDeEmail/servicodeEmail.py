@@ -87,6 +87,15 @@ print(vetor_email)
 def sendEmailOne():     # automacao de emails para  count de links 
     db_sendEmail = cluster["counts"]
     collection_users_sendEmail = db_sendEmail["counts_de_links"]
+    db_counthrefAtual = cluster['hrefs']
+    collection_counthrefAtual = db_counthrefAtual['links_de_Chamada']
+    total_count = collection_counthrefAtual.count_documents({})
+    collection_users_sendEmail.update_one({"_id":0},{"$set":{"Count-de-href-atual":total_count}})
+
+    db_countlinkAtual = cluster['links']
+    collection_countLinkChamadaAtual = db_countlinkAtual['links_de_Chamada']
+    total_count2 = collection_countLinkChamadaAtual.count_documents({})
+    collection_users_sendEmail.update_one({"_id":0},{"$set":{"Count-de-Chamadas-atual":total_count2}})
     total_users_sendEmail = collection_users_sendEmail.count_documents({})
  #   print(total_users_sendEmail)
     array_count_for_links =  list(collection_users_sendEmail.find({},{'_id':0}))
@@ -95,7 +104,7 @@ def sendEmailOne():     # automacao de emails para  count de links
           if array_count_for_links[0]['Count-de-Chamadas-ultimo'] != array_count_for_links[0]['Count-de-Chamadas-atual']:
 
             return
-          db = cluster["SmsServicetest"]
+          db = cluster["mainapp"]
           collection_users = db["users"]
           total_users = collection_users.count_documents({})
 #print(total_users)
@@ -124,10 +133,15 @@ def sendEmailOne():     # automacao de emails para  count de links
 def sendEmailTwo():
     db_sendEmail = cluster["counts"]
     collection_users_sendEmail = db_sendEmail["counts_de_links"]
+
     total_users_sendEmail = collection_users_sendEmail.count_documents({})
+    db_countlinkAtual = cluster['links']
+    collection_countLinkChamadaAtual = db_countlinkAtual['links_de_Chamada']
+    total_count2 = collection_countLinkChamadaAtual.count_documents({})
+    collection_users_sendEmail.update_one({"_id":0},{"$set":{"Count-de-Chamadas-atual":total_count2}})
     array_count_for_links =  list(collection_users_sendEmail.find({},{'_id':0}))
     if array_count_for_links[0]['Count-de-Chamadas-ultimo'] != array_count_for_links[0]['Count-de-Chamadas-atual']:
-        db = cluster["SmsServicetest"]
+        db = cluster["mainapp"]
         collection_users = db["users"]
         total_users = collection_users.count_documents({})
 #print(total_users)
@@ -154,11 +168,11 @@ def sendEmailTwo():
 ########### sendEmailthree ##################################################################
 
 def sendEmailthree():
-    db = cluster["SmsServicetest"]
+    db = cluster["mainapp"]
     collection_users = db["users"]
     total_users = collection_users.count_documents({})
     print(total_users)
-    array_nomes =  list(collection_users.find({},{'nome':1,'email':1,'_id':0}))
+    array_nomes =  list(collection_users.find({},{'username':1,'email':1,'_id':0}))
 
 
     arrays_of_names = np.array(array_nomes)
@@ -172,7 +186,7 @@ def sendEmailthree():
 
 
 
-    db_crawled = cluster["users"]
+    db_crawled = cluster["mainapp"]
     collection_users_crawled = db_crawled["names_found"]
 
     total_users_2 = collection_users_crawled.count_documents({})
@@ -200,7 +214,7 @@ def sendEmailthree():
     vetor_email=[]
     for i in range(0,len(array_of_names_final)):
         for j in range(0,len(arrays_of_names)):
-            if array_of_names_final[i] == arrays_of_names[j]['nome']:
+            if array_of_names_final[i] == arrays_of_names[j]['username']:
                 vetor_email.append(arrays_of_names[j]['email'])
     msg = EmailMessage()
     msg['Subject'] = 'Tem Novo Chamada para Subprograma/Pas'
