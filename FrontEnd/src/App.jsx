@@ -11,6 +11,7 @@ import Logout from './components/Logout'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import AfterLogin from './components/AfterLogin'
 
 function App() {
   const [auth, setauth] = useState(false);
@@ -53,6 +54,7 @@ return (
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/contact" element={<Contact />} />
+      <Route exact path="/user" element={<AfterLogin />} />
       <Route exact path="/about" element={<About />} />
       <Route element={<ProtectedRoutes userst={auth1} />}>
         <Route exact path="/login" element={<Login />} />

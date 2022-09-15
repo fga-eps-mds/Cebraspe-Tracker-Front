@@ -43,7 +43,7 @@ const Login = () => {
             }else{
               window.alert("Login Com Sucesso");
               // window.location.reload();
-              history('/')
+              history('/user')
               
             }
       
