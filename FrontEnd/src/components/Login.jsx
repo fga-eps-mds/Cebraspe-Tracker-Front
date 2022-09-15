@@ -10,9 +10,8 @@ const Login = () => {
     const history = useNavigate();
 
     const [user, setUser] = useState({
-        
-        email:"",
-        password : ""
+        email:'',
+        password : ''
         
       });
   
@@ -43,8 +42,8 @@ const Login = () => {
               window.alert("Dados Incoretas")
             }else{
               window.alert("Login Com Sucesso");
-             // window.location.reload();
-              history('/register')
+              // window.location.reload();
+              history('/')
               
             }
       
