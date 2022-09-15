@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 const About = () => {
     return (
         <div>
+            <Navbar/>
 
             <section id="about">
                 <div className="container my-5 py-5">

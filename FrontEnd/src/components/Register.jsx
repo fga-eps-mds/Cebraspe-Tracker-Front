@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router';
+import Navbar from "./NavbarLC";
 
 
 const Register = () => {
@@ -58,6 +59,7 @@ const Register = () => {
 
     return (
         <div>
+          <Navbar/>
             <div className="container my-5">
                 <div className="row d-flex justify-content-center">
 

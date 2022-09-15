@@ -16,12 +16,6 @@ const Navbar = (props) => {
 
                 <div className="col-md-3 text-end">
 
-                            <NavLink to="/login" type="button" className="btn btn-outline-light me-4" style={{ color: '#9C7DFD' }}>
-                                <i className='fa fa-sign-in'></i> Entrar</NavLink>
-                            <NavLink to="/register" type="button" className="btn btn-outline-light" style={{ marginRight: 50, color: '#009485' }}>
-                                <i className='fa fa-user-plus'></i> Cadastrar-se</NavLink>
-
-
                         </div>
             </header>
         </div>

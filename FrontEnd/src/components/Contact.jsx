@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 const Contact = () => {
     return (
         <div>
+            <Navbar/>
             <section id="contact">
                 <div className="container my-5 py-5">
                     <div className="row mb-5">

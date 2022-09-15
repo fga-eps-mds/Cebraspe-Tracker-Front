@@ -1,9 +1,11 @@
 import React from 'react';
+import Navbar from './Navbarlog';
 
 
 const AfterLogin = () => {
     return(
         <div>
+            <Navbar/>
             <section id="home">
                 <div className="container">
 

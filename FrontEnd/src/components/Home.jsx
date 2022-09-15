@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 const Home = () => {
     return(
         <div>
+            <Navbar/>
             <section id="home">
                 <div className="container">
                     <div className='row justify-content-center'>
