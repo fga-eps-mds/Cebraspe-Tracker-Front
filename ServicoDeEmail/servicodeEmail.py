@@ -4,6 +4,9 @@ from email.mime.text import MIMEText
 from pymongo import MongoClient
 import numpy as np
 from email.message import EmailMessage
+import time 
+import schedule
+
 
 
 
@@ -231,3 +234,11 @@ def sendEmailthree():
     
 
 
+schedule.every(500).minutes.do(sendEmailOne())  
+
+schedule.every(500).minutes.do(sendEmailTwo())
+
+schedule.every(500).minutes.do(sendEmailthree())
+while 1:
+    schedule.run_pending()
+    time.sleep(1)
