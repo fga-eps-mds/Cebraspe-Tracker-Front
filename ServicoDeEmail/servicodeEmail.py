@@ -93,7 +93,8 @@ def sendEmailOne():     # automacao de emails para  count de links
 
     if array_count_for_links[0]['Count-de-href-ultimo'] != array_count_for_links[0]['Count-de-href-atual']:
           if array_count_for_links[0]['Count-de-Chamadas-ultimo'] != array_count_for_links[0]['Count-de-Chamadas-atual']:
-            break
+
+            return
           db = cluster["SmsServicetest"]
           collection_users = db["users"]
           total_users = collection_users.count_documents({})
@@ -107,7 +108,7 @@ def sendEmailOne():     # automacao de emails para  count de links
           msg['From'] = 'suporte do cebraspe-tracker'
       
           msg['To'] = array_email
-          msg.set_content("Ola querido Candidato(a). \n O nosso sistema encontrou ataulizacao no site do Cebraspe. \n \n \nObservacao esse email e automatico  ")
+          msg.set_content("Ola Candidato(a). \n Ha uma nova ataulizacao no site do Cebraspe onde voce esta cadastrado .\n Visite o site e verifique as novas atualizacoes. \n \n \n Este email e automatico. Por favor, nao respende-lo.  ")
           print("mandou email")
           server = smtplib.SMTP_SSL('smtp.gmail.com',465)
           server.login('email','senha')
@@ -134,18 +135,19 @@ def sendEmailTwo():
         array_email_list =  list(collection_users.find({},{'email':1,'_id':0}))
         for i in range(0,len(array_email_list)):
             array_email.append(array_email_list[i]['email'])
-          msg = EmailMessage()
-          msg['Subject'] = 'Tem Novo Chamada para Subprograma/Pas'
-          msg['From'] = 'Suporte do cebraspe-tracker'
+        msg = EmailMessage()
+        msg['Subject'] = 'Tem Novo Chamada para Subprograma/Pas'
+        msg['From'] = 'Suporte do cebraspe-tracker'
   
-          msg['To'] = array_email
-          msg.set_content("Ola querido Candidato(a). \n O nosso sistema encontrou Novo Chamada NO site Do Cebraspe. \n \n \nObservacao esse email e automatico  ")
-          print("mandou email")
-          server = smtplib.SMTP_SSL('smtp.gmail.com',465)
-          server.login('email','senha')
+        msg['To'] = array_email
+        msg.set_content("Ola Candidato(a). \n O nosso sistema encontrou uma nova chamada para Subprograma/Pas no site do Cebraspe.\n Visite site e verifique se seu nome esta na lista de aprovados.  \n \n \nEste email e automatico. Por favor, nao respende-lo. ")
+
+        print("mandou email")
+        server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+        server.login('email','senha')
           
-          server.send_message(msg)
-          server.quit()
+        server.send_message(msg)
+        server.quit()
         
         
 
@@ -204,8 +206,8 @@ def sendEmailthree():
     msg['Subject'] = 'Tem Novo Chamada para Subprograma/Pas'
     msg['From'] = 'Suporte do cebraspe-tracker'
         #  msg['to'] = 'hannanhoney7000@gmail.com'
-    msg['To'] = array_email
-    msg.set_content("Ola querido Candidato(a). \n O nosso sistema encontrou Novo Chamada NO site Do Cebraspe. \n \n \nObservacao esse email e automatico  ")
+    msg['To'] = vetor_email
+    msg.set_content("Ola Candidato(a). \n O nosso sistema encontrou seu nome na lista de aprovados. Visite o site e verifique se seu nome realmente esta na lista de aprovados. Se encontrou, parabens pela aprovacao  \n \n \nEste email e automatico. Por favor, nao respende-lo.  ")
     print("mandou email")
     server = smtplib.SMTP_SSL('smtp.gmail.com',465)
     server.login('email','senha')
